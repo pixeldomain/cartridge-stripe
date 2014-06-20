@@ -1,3 +1,4 @@
+from datetime import datetime
 from copy import copy
 from itertools import dropwhile, takewhile
 from locale import localeconv
@@ -14,7 +15,6 @@ from django.utils.translation import ugettext_lazy as _
 
 from mezzanine.conf import settings
 from mezzanine.core.templatetags.mezzanine_tags import thumbnail
-from mezzanine.utils.timezone import now
 
 from cartridge.shop import checkout
 from cartridge.shop.models import Product, ProductOption, ProductVariation
@@ -131,7 +131,7 @@ class OrderForm(FormsetForm, DiscountForm):
                     self.fields[field].required = False
 
         # Set the choices for the cc expiry year relative to the current year.
-        year = now().year
+        year = datetime.now().year
         choices = make_choices(range(year, year + 21))
         self.fields["card_expiry_year"].choices = choices
 
